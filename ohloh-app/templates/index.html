@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+	{% block introduce %}
+        <h2>오픈소스 저작권 유지</h2>
+        <p><A id="osi"
+          href="#" 
+          rel="tooltip" 
+          data-original-title=" OpenSource SW Definition of OSI <br/> OSI에서 규정한 오픈소스SW의 정의를 확인해 보세요. ">오픈소스SW</A>는 만드는 사람들(커뮤니티)의 사상과 성격에 따라 다양한 라이선스 의무사항이 존재하며 그 조건안에서 사용을 허락하고 있습니다. 
+<!--
+          오픈소스SW 라이선스 의무사항은 조금씩 차이가 있지만 크게 나누어보면 공통적으로‘저작권관련문구유지’,‘제품명중복방지’,‘서로다른라이선스의SW 조합시조합가능여부확인’등이있고, 추가적으로 ‘소스코드공개’,‘특허관련사항준수’등이있습니다. 
+-->       이 사이트는 오픈소스SW 라이선스 의무 사항 중 '저작권관련문구유지'의무 '사용여부고지'의무에 해당하는 부분을 돕기위하여 만들어 졌으며, 오픈소스가 포함된 소프트웨어를 배포할때 함께 제공해야 하는 <a id="legal_notice" href="#" rel="tooltip" data-original-title=" 사용한 모든 오픈소스SW의 목록들과 각 오픈소스SW들에 대한 사용 라이선스전문을 담고 있는 파일입니다. 오픈소스SW를 사용하였을 경우에는 해당 오픈소스SW를 사용하였음을 최종 사용자에게 고지하여야 할 의무가 있습니다. (혹은 Copyright Notice) ">LEGAL NOTICE</a>를 생성해줍니다.</p>
+        <p><a id="olis" class="btn btn-primary btn-large" 
+              href="http://www.olis.or.kr/ossw/license/open_source_guide_03.pdf" 
+              target="_blank"
+              rel="tooltip" 
+              data-original-title="한국저작권위원회에서 운영하는 OLIS에서 보다 많은 정보를 얻을 수 있습니다. (http://www.olis.or.kr)"
+              >Learn more &raquo;</a>
+        </p>
+	{% endblock %}
+	
+	{% block script_import %}
+		<script src="{{ url_for('static',filename='js/jquery.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-transition.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-alert.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-modal.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-dropdown.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-scrollspy.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-tab.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-tooltip.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-popover.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-button.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-collapse.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-carousel.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap-typeahead.js')}}"></script>
+		<script src="{{ url_for('static',filename='js/bootbox.js')}}"></script> 
+		<!-- jQuery UI =begin= -->
+		<script src="{{ url_for('static',filename='external/jquery.bgiframe-2.1.2.js')}}"></script>
+		<script src="{{ url_for('static',filename='ui/jquery.ui.core.js')}}"></script>
+		<script src="{{ url_for('static',filename='ui/jquery.ui.widget.js')}}"></script>
+		<script src="{{ url_for('static',filename='ui/jquery.ui.mouse.js')}}"></script>
+		<script src="{{ url_for('static',filename='ui/jquery.ui.draggable.js')}}"></script>
+		<script src="{{ url_for('static',filename='ui/jquery.ui.position.js')}}"></script>
+		<script src="{{ url_for('static',filename='ui/jquery.ui.resizable.js')}}"></script>
+		<script src="{{ url_for('static',filename='ui/jquery.ui.dialog.js')}}"></script>
+		<!-- jQuery UI =end= -->
+	{% endblock %}
+	
+	
+	
+	{% block footer %}
+		<a href="https://developers.google.com/appengine/" taret="_blank"><img src="https://developers.google.com/appengine/images/appengine-silver-120x30.gif"
+		alt="Powered by Google App Engine" /></a> 
+		<!--  
+		<a href ="http://www.web2py.com"><img src="http://www.web2py.com/examples/static/images/Stickers8.png" alt="Powered by web2py"/></a>
+		-->
+		<a href ="http://www.ohloh.net"><img src="http://www.ohloh.net/images/badges/mini.gif" width="80" height="15" /></a>
+	{% endblock %}
+
+

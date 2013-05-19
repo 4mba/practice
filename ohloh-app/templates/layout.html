@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>OpenSource License Helper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="{{ url_for('static',filename='css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/loading.css')}}" rel="stylesheet" >
+    <link href="{{ url_for('static',filename='themes/base/jquery.ui.all.css')}}" rel="stylesheet" >
+    <style type="text/css">
+      body {
+        padding-top: 50px;
+        padding-bottom: 30px;
+      }
+    </style>
+    <link href="{{ url_for('static',filename='css/bootstrap-responsive.css')}}" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="{{ url_for('static',filename='ico/favicon.ico')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static',filename='ico/apple-touch-icon-144-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static',filename='ico/apple-touch-icon-114-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url_for('static',filename='ico/apple-touch-icon-72-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" href="{{ url_for('static',filename='ico/apple-touch-icon-57-precomposed.png')}}">
+	
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">OpensSource License Helper</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+			{% block introduce %}
+			{% endblock %}
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>Legal Notice 얻기</h2>
+           <p>오픈소스가 포함된 소프트웨어를 배포할때에 필요한 LEGAL NOTICE 생성해 줍니다.배포할 소프트웨어에 포함된 오픈소스 목록을 검색하여 포함시켜 주세요.
+          <p><a class="btn" id="start" href="#" >Let's go! &raquo;</a></p>
+        </div>
+        <div class="span4">
+          <h2>Top Ranked!</h2>
+           <p>이 사이트를 통해서 LEGAL NOTICE를 생성하기 위해 많이 조회된 오픈소스 프로젝트들을 확인해보실 수 있습니다. </p>
+          <p><a class="btn" href="#">Let's go! &raquo;</a></p>
+       </div>
+        <div class="span4">
+          <h2>ohloh.net</h2>
+          <p><a href="http://ohloh.net" target="_blank">ohloh.net</a>은 오픈소스 프로젝트 평가 및 리뷰, 소프트웨어 디렉토리 검색서비스를 제공하고 있습니다. 이 서비스는 ohloh.net의 메타 정보 API를 통하여 오픈소스 정보들을 제공받아 사용하고 있습니다. </p>
+          <p><a class="btn" href="http://ohloh.net" target="_blank">Let's go! &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>
+			{% block footer %}
+			{% endblock %}
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	{% block script_import %}
+	{% endblock %}
+
+    <script type=text/javascript>
+      var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+      var total_cnt;
+      var page_num;
+
+      $(document).ready(function () {
+          $("[rel=tooltip]").tooltip();
+
+          $("body").on({
+        	    ajaxStart: function() { 
+        	        $(this).addClass("loading"); 
+        	    },
+        	    ajaxStop: function() { 
+        	        $(this).removeClass("loading"); 
+        	    }    
+        	});
+
+          $("#start").click(function(e) {
+              e.preventDefault();
+          		$("#dialog").show();
+          		$("#dialog").dialog({
+   					resizable: true,
+					maxWidth:680,
+					maxHeight: 480,
+					width: 680,
+					height: 470,
+   					modal: false
+   				});
+          		document.getElementById('oss_name').value="";
+             	$('#search_list').empty();
+             	$('#result_navi').hide();
+             	$('#result_navi').empty();
+
+     		});
+
+          $("#search").click(function(e) {
+              e.preventDefault();
+             	$('#search_list').empty();
+             	$('#result_navi').empty();
+				var list;
+              $.getJSON($SCRIPT_ROOT + '/search/'+document.getElementById('oss_name').value+'/1', 
+            		function(data) {
+	                 $("[rel=tooltip]").tooltip();
+            	  		$.each(data, function (index, entry) {
+            	  			//alert(index+":"+entry["name"]);
+            	  			var no = index + 1;
+            	  			var result;
+            	  			var temp = "";
+            	  			result =  "<tr>" + 
+									   "<td>" + no  + "</td>" + 
+			  							"<td><input type=checkbox> "  +  
+			  							"<a href='" + entry['homepage_url'] + "' target='_blank' rel='tooltip' data-original-title='"+ entry['description'] + "'>"+entry['name'] + "</a></td>" +
+			  							"<td>" + "<a href='#' rel='tooltip' data-original-title='<img src="+entry['medium_logo_url']+">'>" + "<img src='" + entry['small_logo_url'] + "' width='18' height='18' ></a></td>";
+			  							
+			  				$.each(entry['licenses'], function(index, licenses) {
+			  					if (index == 0 ) { 
+				  					temp = temp +
+				  					"<a href='"+licenses['license_url']+"' target='_blank'>"+licenses['nice_name']+"</a>";
+			  					} else {
+				  					temp = temp +
+				  					" / <a href='"+licenses['license_url']+"' target='_blank'>"+licenses['nice_name']+"</a>";
+			  					}
+			  				});
+			  				temp = "<td>" + temp + "</td>"
+							result = result + temp + 
+	  						       "<td><a href='" + entry['ohloh_url'] +"' target='_blank'>ohloh</a></td></tr>"
+            	  			
+            	  			
+            	  			$('#search_list').append(result);	
+	  						total_cnt = entry['header']['items_available'];
+	  						page_num = entry['header']['first_item_position'] + 1;
+            	  		});
+
+            	  		$('#result_navi').append(" Total:" + total_cnt + " page:"+page_num+ " < prev / next >");
+            	  		$('#result_navi').show("slow");
+              		});
+            	
+              return false;
+     		});
+          
+          
+          $("#osi").click(function(e) {
+              e.preventDefault();
+              bootbox.alert(" <b>The Open Source Definition</b> <br/>1. Free Redistribution<br/>2. Source Code<br/>3. Derived Works<br/>4. Integrity of The Author's Source Code<br/>5. No Discrimination Against Persons or Groups<br/>6. No Discrimination Against Fields of Endeavor<br/>7. Distribution of License<br/>8. License Must Not Be Specific to a Product<br/>9. License Must Not Restrict Other Software<br/>10. License Must Be Technology-Neutral <br/><br/> 상세정보 확인 : <a href='http://opensource.org/osd.html' target='_blank'>http://opensource.org/osd.html</a>");
+              
+          	});
+
+          $("#olis").click(function(e) {
+              e.preventDefault();
+              bootbox.alert("<b>한국저작권위원회에서 운영하는 OLIS에서 보다 많은 정보를 얻을 수 있습니다.</b> <br/><br/>오픈소스 SW 라이선스 종합정보 시스템 OLIS(Opensource License Information System)OLIS는 오픈소스 라이선스 정보와 관련 법률 상담 및 오픈소스 개발자를 위한 커뮤니티 서비스를 제공합니다.<br/><br/> <ul><li>OLIS : <a href='http://www.olis.or.kr' target='_blank'>http://www.olis.or.kr</a></li><li><a href='http://olis.or.kr/download/attachFile.do?fileSeq=114' target='_blank'>오픈소스 가이드북1.0_초급편.PDF</a></li><li><a href='http://olis.or.kr/download/attachFile.do?fileSeq=115' target='_blank'>오픈소스SW 라이선스 가이드2.0_중급편.pdf</a></li><li><a href='http://olis.or.kr/download/attachFile.do?fileSeq=116' target='_blank'>오픈소스SW 라이선스 분쟁 대응방안 가이드.pdf</a></li></ul>");
+              
+          	});
+
+          $("#legal_notice").click(function(e) {
+              e.preventDefault();
+              bootbox.alert("<b>LEGAL NOTICE 샘플</b> <br/><br/><ul><li>L전자 오픈소스 LEGAL NOTICE : <a href='http://www.lg.com/lgecs.downloadFile.ldwf?OPENSOURCE_FILE_NAME=GP2_B_CO_LI_2010.pdf&OPENSOURCE_ORIGINAL_NAME=licenseGLZ/GP2_B_CO_LI_2010.pdf&detailCustomerModelCode=&DownFileType=opensource' target='_blank'>Model Name : 55LX9500-SA</a></li><li>S전자 오픈소스 LEGAL NOTICE : <a href='http://opensource.samsung.com/reception/receptionSub.do?method=downLoad&classification_desc=&menu_item=&classification1=&classification2=&classification3=&model=&source_code=&attach_id=3670&source_ver=&currentTreeRow=&down_purpose=&down_purpose_memo=' target='_blank'>GALAXY S3 LTE (SHV-E210S)</a></li><li> L전자 소스공개 사이트 : <a href='http://opensource.lge.com' target='_blank'>http://opensource.lge.com</a></li><li> S전자 소스공개 사이트 : <a href='http://opensource.samsung.com' target='_blank'>http://opensource.samsung.com</a></li></ul>");
+              
+          	});
+          	
+          	$("#dialog").hide();
+    		
+  
+      });
+    </script>
+
+	<div id="dialog" title='오픈소스를 검색하고 사용한 오픈소스를 선택하세요.(Powerd by ohloh.net META API)' class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable">
+	<div class="ajaxmodal"><!-- Place at bottom of page --></div>
+<!-- 
+	   <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+	      <span id="ui-dialog-title-dialog" class="ui-dialog-title">Dialog title</span>
+	      <a class="ui-dialog-titlebar-close ui-corner-all" href="#"><span class="ui-icon ui-icon-closethick">close</span></a>
+	   </div>
+-->
+		<div style="width: auto;" class="ui-dialog-content ui-widget-content" id="dialog">
+		    <form class="form-search">
+			    <input id="oss_name" type="text" class="input-large search-query" placeholder="Type OSS project name..">
+			    <button id="search" type="submit" class="btn btn-warning">Search</button> <span id='result_navi'></span>
+		    </form>
+
+			<div class="bs-docs-example">
+			  <table class="table table-hover table-condensed">
+			    <thead>
+			      <tr>
+			        <th align=center>#</th>
+			        <th align=center>Name</th>
+			        <th align=center>Logo</th>
+			        <th align=center>License</th>
+			        <th align=center>ohloh</th>
+			      </tr>
+			    </thead>
+			    <tbody id="search_list">
+			    	<!-- Dynamic Generated Contents -->
+			    </tbody>
+			  </table>
+			</div>
+	   </div>
+	</div>
+
+
+  </body>
+</html>
