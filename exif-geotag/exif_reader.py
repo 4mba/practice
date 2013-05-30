@@ -1,11 +1,9 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 
-import glob
+import glob;
 
-#pyexiv2 를 설치해야 
-#import pyexiv2
-
+import EXIF;
 
 
 # exif 정보를 읽어올 사진 파일목록을 가져온다.
