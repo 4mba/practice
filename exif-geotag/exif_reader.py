@@ -5,6 +5,8 @@ import glob;
 
 import EXIF;
 
+#####################
+
 
 # exif 정보를 읽어올 사진 파일목록을 가져온다.
 photos = [];
