@@ -3,7 +3,6 @@
    exif_reader
     ~~~~~~~~~~~~~~
 
-<<<<<<< HEAD
     JPEG 사진에서 EXIF(교환 이미지 파일 형식, EXchangable Image File format)를 이용하여,
     PhotoLog에서 사용할 위치기반 정보를 얻어 온다.
 
