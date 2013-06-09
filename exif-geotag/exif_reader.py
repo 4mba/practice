@@ -55,22 +55,16 @@ class EXIFReader :
 
 
     
-=======
-import glob;
-
-import EXIF;
-
-#####################
->>>>>>> 862977574a1dd6d10d4b00902208d17eeae79f61
-
-
-# exif 정보를 읽어올 사진 파일목록을 가져온다.
-#photos = [];
-#photos = glob.glob('./photos/*.jpg');
-
-#for path in  photos: 
-#    print path
-
+#All Information of EXIF in photos/2012-07-12 12.12.12.jpg
+#================================================
+#Key: GPS GPSLongitude, value [0, 843/100, 0]
+#Key: GPS GPSLatitude, value [51, 3003/100, 0]
+#Key: Image GPSInfo, value 594
+#Key: GPS GPSLatitudeRef, value N
+#Key: GPS GPSAltitudeRef, value 0
+#Key: GPS GPSTimeStamp, value [11, 12, 1181/100]
+#Key: GPS GPSAltitude, value 1820/317
+#Key: GPS GPSLongitudeRef, value W
 
     
 
