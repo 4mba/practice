@@ -17,32 +17,40 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-@app.route('/')
-def index():
-    return render_template('main.html')
-
 
 @app.route('/user/login')
-def index():
+def login():
     return render_template('login.html')
 
-@app.route('/user/register')
-def index():
-    return render_template('register.html')
 
-
-@app.route('/layout')
-def index():
-    return render_template('layout.html')
-
-
-@app.route('/user/register')
-def index():
-    return render_template('layout.html')
+@app.route('/user/regist')
+def parent():
+    return render_template('regist.html')
 
 @app.route('/photo/upload')
-def index():
-    return render_template('layout.html')
+def upload():
+    return render_template('upload.html')
+
+
+@app.route('/photo/entry/all')
+def entry_all():
+    return render_template('entry_all.html')
+
+
+@app.route('/photo/entry/<id>')
+def entry():
+    return render_template('upload.html')
+
+
+
+
+def not_found(error):
+#     print "404 Page not found"
+    return render_template('404.html')
+
+def server_error(error):
+    print "500 Server Error : %s" % error
+    return render_template('500.html')
 
 
 
