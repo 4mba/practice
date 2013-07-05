@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Photolog::{% block title %}{% endblock %}</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Jou Sung-Shik" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}" type="text/css" media="screen" title="photolog" charset="UTF-8" />
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css') }}" type="text/css" media="screen" title="photolog" charset="UTF-8" />
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}" type="text/css" media="screen" title="photolog" charset="UTF-8" />
+
+		<!--[if IE 7]>
+			<link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome-ie7.min.css')}}">
+		<![endif]-->
+		
+		<!--[if lt IE 9]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+		<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+		<script src="{{ url_for('static',filename='js/bootbox.min.js') }}"></script>
+		<script src="{{ url_for('static',filename='js/gmaps.js') }}"></script>
+
+  </head>
+
+  <body>
+
+  {% block body %}{% endblock %}
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--
+    <script src="{{ url_for('static', filename='js/jquery-1.10.1.min.js') }}"></script>
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/gmaps.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootbox.min.js') }}"></script>
+ 
+  <script type=text/javascript>
+		$(document).ready(function () {
+			
+			$("#upload_link").click(function(e) {
+				
+				var uploadForm = "";
+				uploadForm  ="<form name='upload' method='POST' enctype='multipart/form-data'>";
+				uploadForm +="	<dl><dd>사진 : <input type='file' name='file' class='input-small'> </dd>";
+				uploadForm +="	<dd>태그 : <input type='text' name='tag' class='input-xlarge'> </dd>";
+				uploadForm +="	</dl><dd>메모 : <textarea name='comment' rows='3' class='input-xlarge'> </textarea></dd>";
+				uploadForm +="  <input type='hidden' name='userid' value='liks'>";
+				uploadForm +="</form>";
+				
+				bootbox.confirm(uploadForm, function(result) {
+					
+					if(result == true){
+						// upload
+						document.upload.action="#";
+						document.upload.submit();
+					}else{
+						return false;
+					}
+				}); 				
+
+			});
+
+		});
+	</script>
+
+
+  </body>
+</html>
