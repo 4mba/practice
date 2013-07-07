@@ -1,8 +1,8 @@
 <!doctype html>
 <html>
   <head>
-  	
-		<meta charset="utf-8" />
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  	
 
 		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
@@ -10,7 +10,6 @@
 
 		<title>Photolog::{% block title %}{% endblock %}</title>
 		<meta name="description" content="" />
-		<meta name="author" content="Jou Sung-Shik" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -39,14 +38,14 @@
   </head>
   <body>
 
-	<div id="header">
+	<div id="header-menu">
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container pull-left">
 			          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					            <span class="icon-bar"></span>
-					            <span class="icon-bar"></span>
-					            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
 			          </button>
 					<a class="brand" href="#">&nbsp;<i class="icon-picture"></i>Photolog</a>
 					<div class="nav-collapse collapse">
@@ -101,7 +100,7 @@
 			            <span class="icon-bar"></span>
 			            <span class="icon-bar"></span>
 	          </button>
-			<div class="nav-collapse collapse">
+			<div id="footer-menu" class="nav-collapse collapse">
 		        	<ul class="nav">
 		        		<li class="active"><a href="#" data-toggle="tooltip" title="first tooltip"><i class="icon-map-marker icon-large"></i> 지도에서 사진보기 </a></li>
 		        		<li class="active">
